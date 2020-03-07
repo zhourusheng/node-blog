@@ -1,19 +1,25 @@
+const { SuccessModel, ErrorModel } = require('../model/resModel')
+const { getList, getDetail } = require('../controller/blog')
+
 const handleBlogRouter = (req, res) => {
   const { method, path } = req
-
   const prefix = '/api/blog'
 
   // 博客列表
   if (method === 'GET' && path === `${prefix}/list`) {
-    return {
-      msg: '博客列表'
-    }
+    const { author, keyword } = req.query
+    const listData = getList(author, keyword)
+    return new SuccessModel(listData)
   }
 
   // 博客详情
   if (method === 'GET' && path === `${prefix}/detail`) {
-    return {
-      msg: '博客详情'
+    const { id } = req.query
+    if (id) {
+      const detailData = getDetail(id)
+      return new SuccessModel(detailData)
+    } else {
+      return new ErrorModel('缺少id')
     }
   }
 
@@ -37,6 +43,5 @@ const handleBlogRouter = (req, res) => {
       msg: '更新博客'
     }
   }
-
 }
 module.exports = handleBlogRouter
