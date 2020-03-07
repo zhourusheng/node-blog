@@ -2,12 +2,17 @@
   "name": "node-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bin/www.js",
   "scripts": {
-    "start": "node app.js",
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.2"
+  }
 }

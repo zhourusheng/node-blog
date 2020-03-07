@@ -1,7 +1,13 @@
-const http = require('http')
+const serverHandle = (req, res) => {
+  // 设置返回格式 JSON
+  res.setHeader('Content-type', 'application/json')
 
-const server = http.createServer((request, response) => {
-  response.end('hello world')
-})
+  const data = {
+    name: 'zhourusheng'
+  }
+  res.end(
+    JSON.stringify(data)
+  )
+}
 
-server.listen(8080)
+module.exports = serverHandle
