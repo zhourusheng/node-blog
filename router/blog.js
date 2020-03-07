@@ -1,6 +1,5 @@
 const handleBlogRouter = (req, res) => {
-  const { method, url } = req
-  const path = url.split('?')[0]
+  const { method, path } = req
 
   const prefix = '/api/blog'
 

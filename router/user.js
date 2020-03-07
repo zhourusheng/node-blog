@@ -1,7 +1,5 @@
 const handleUserRouter = (req, res) => {
-  const { method, url } = req
-  const path = url.split('?')[0]
-
+  const { method, path } = req
   const prefix = '/api/user'
 
   // 用户注册
