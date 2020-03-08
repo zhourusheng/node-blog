@@ -1,14 +1,4 @@
 const getList = (author, keyword) => {
-  return [
-    {
-      id: 1,
-      title: 'hahaha'
-    },
-    {
-      id: 2,
-      title: '黑黑嘿嘿嘿'
-    }
-  ]
 }
 
 const getDetail = (id) => {

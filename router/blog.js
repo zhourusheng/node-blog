@@ -16,8 +16,12 @@ const handleBlogRouter = (req, res) => {
   // 博客列表
   if (method === 'GET' && path === `${prefix}/list`) {
     const { author, keyword } = req.query
-    const listData = getList(author, keyword)
-    return new SuccessModel(listData)
+    // const listData = getList(author, keyword)
+    // return new SuccessModel(listData)
+    const result = getList(author, keyword)
+    return result.then(listData => {
+      return new SuccessModel(listData)
+    })
   }
 
   // 博客详情
