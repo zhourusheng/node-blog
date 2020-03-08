@@ -20,7 +20,15 @@ const getDetail = (id) => {
   }
 }
 
+const newBlog = (data = {}) => {
+  console.log(data)
+  return {
+    id: 3
+  }
+}
+
 module.exports = {
   getList,
-  getDetail
+  getDetail,
+  newBlog
 }

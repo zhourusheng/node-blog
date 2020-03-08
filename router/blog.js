@@ -1,5 +1,5 @@
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const { getList, getDetail } = require('../controller/blog')
+const { getList, getDetail, newBlog } = require('../controller/blog')
 
 const handleBlogRouter = (req, res) => {
   const { method, path } = req
@@ -25,9 +25,8 @@ const handleBlogRouter = (req, res) => {
 
   // 新建博客
   if (method === 'POST' && path === `${prefix}/new`) {
-    return {
-      msg: '新建博客'
-    }
+    const data = newBlog(req.body)
+    return new SuccessModel(data)
   }
 
   // 删除博客

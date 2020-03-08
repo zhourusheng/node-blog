@@ -29,14 +29,14 @@ const serverHandle = (req, res) => {
       // 处理数据
       let postData = ''
       req.on('data', chunk => {
-        postData += chunk
+        postData += chunk.toString()
       })
       req.on('end', () => {
         if (!postData) {
           resolve({})
           return
         }
-        return reject(JSON.parse(postData))
+        return resolve(JSON.parse(postData))
       })
     })
     return promise
@@ -57,12 +57,12 @@ const serverHandle = (req, res) => {
       res.end(JSON.stringify(userData))
       return // 注意 return
     }
-  })
 
-  // 处理 404
-  res.writeHead(404, { 'Content-type': 'text/plain' })
-  res.write('404 Not Found\n')
-  res.end()
+    // 处理 404
+    res.writeHead(404, { 'Content-type': 'text/plain' })
+    res.write('404 Not Found\n')
+    res.end()
+  })
 }
 
 module.exports = serverHandle
