@@ -3,7 +3,8 @@ const {
   getList,
   getDetail,
   newBlog,
-  updateBlog
+  updateBlog,
+  delBlog
 } = require('../controller/blog')
 
 const handleBlogRouter = (req, res) => {
@@ -51,8 +52,15 @@ const handleBlogRouter = (req, res) => {
 
   // 删除博客
   if (method === 'POST' && path === `${prefix}/delete`) {
-    return {
-      msg: '删除博客'
+    if (id) {
+      const result = delBlog(id)
+      if (result) {
+        return new SuccessModel('删除博客成功')
+      } else {
+        return new ErrorModel('删除博客失败')
+      }
+    } else {
+      return new ErrorModel('缺少id')
     }
   }
 }
