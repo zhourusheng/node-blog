@@ -48,7 +48,7 @@ const serverHandle = (req, res) => {
     // 处理路由
     const blogResult = handleBlogRouter(req, res)
     if (blogResult) {
-      blogResult.then(blogData => {
+      return blogResult.then(blogData => {
         res.end(JSON.stringify(blogData))
         return // 注意 return
       })

@@ -1,12 +1,16 @@
+const { exec } = require('../db/mysql')
+
 const getList = (author, keyword) => {
+  let sql = 'select * from users'
+  return exec(sql)
 }
 
-const getDetail = (id) => {
+const getDetail = id => {
   return {
     id: 2,
-      title: '黑黑嘿嘿嘿',
-      author: 'heihei',
-      createTime: 1583583036098
+    title: '黑黑嘿嘿嘿',
+    author: 'heihei',
+    createTime: 1583583036098
   }
 }
 
@@ -21,7 +25,7 @@ const updateBlog = (id, blogData = {}) => {
   return true
 }
 
-const delBlog = (id) => {
+const delBlog = id => {
   return true
 }
 
