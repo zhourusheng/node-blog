@@ -9,14 +9,14 @@ const getList = (author, keyword) => {
     sql += `and title like '%${keyword}%' `
   }
   sql += `order by createtime desc;`
-  return exec(sql).then(rows => {
-    return rows[0]
-  })
+  return exec(sql)
 }
 
 const getDetail = id => {
   const sql = `select * from blogs where id=${id}`
-  return exec(sql)
+  return exec(sql).then(rows => {
+    return rows[0]
+  })
 }
 
 const newBlog = (blogData = {}) => {
@@ -27,7 +27,6 @@ const newBlog = (blogData = {}) => {
     values ('${title}', '${content}', ${createtime}, '${author}');
   `
   return exec(sql).then(insertData => {
-    console.log(insertData)
     return {
       id: insertData.insertId
     }
