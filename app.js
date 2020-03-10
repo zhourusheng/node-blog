@@ -48,10 +48,15 @@ const serverHandle = (req, res) => {
     // 处理路由
     const blogResult = handleBlogRouter(req, res)
     if (blogResult) {
-      return blogResult.then(blogData => {
-        res.end(JSON.stringify(blogData))
-        return // 注意 return
-      })
+      return blogResult
+        .then(blogData => {
+          res.end(JSON.stringify(blogData))
+          return // 注意 return
+        })
+        .catch(err => {
+          res.end(JSON.stringify(err))
+          return
+        })
     }
 
     const userData = handleUserRouter(req, res)

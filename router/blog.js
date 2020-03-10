@@ -24,12 +24,16 @@ const handleBlogRouter = (req, res) => {
 
   // 博客详情
   if (method === 'GET' && path === `${prefix}/detail`) {
-    if (id) {
-      const detailData = getDetail(id)
-      return new SuccessModel(detailData)
-    } else {
-      return new ErrorModel('缺少id')
-    }
+    return new Promise((resolve, reject) => {
+      if (id) {
+        const result = getDetail(id)
+        return result.then(detailData => {
+          resolve(new SuccessModel(detailData))
+        })
+      } else {
+        reject(new ErrorModel('缺少id'))
+      }
+    })
   }
 
   // 新建博客
@@ -37,7 +41,7 @@ const handleBlogRouter = (req, res) => {
     const data = newBlog(req.body)
     return new SuccessModel(data)
   }
-  
+
   // 更新博客
   if (method === 'POST' && path === `${prefix}/update`) {
     if (id) {

@@ -1,17 +1,22 @@
 const { exec } = require('../db/mysql')
 
 const getList = (author, keyword) => {
-  let sql = 'select * from users'
-  return exec(sql)
+  let sql = 'select * from blogs where 1=1 '
+  if (author) {
+    sql += `and author=${author} `
+  }
+  if (keyword) {
+    sql += `and title like '%${keyword}%' `
+  }
+  sql += `order by createtime desc;`
+  return exec(sql).then(rows => {
+    return rows[0]
+  })
 }
 
 const getDetail = id => {
-  return {
-    id: 2,
-    title: '黑黑嘿嘿嘿',
-    author: 'heihei',
-    createTime: 1583583036098
-  }
+  const sql = `select * from blogs where id=${id}`
+  return exec(sql)
 }
 
 const newBlog = (blogData = {}) => {
