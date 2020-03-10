@@ -47,16 +47,18 @@ const handleBlogRouter = (req, res) => {
 
   // 更新博客
   if (method === 'POST' && path === `${prefix}/update`) {
-    if (id) {
-      const result = updateBlog(id, req.body)
-      if (result) {
-        return new SuccessModel('更新博客成功')
+    return new Promise((resolve, reject) => {
+      if (id) {
+        const result = updateBlog(id, req.body)
+        if (result) {
+          resolve(new SuccessModel('更新博客成功'))
+        } else {
+          reject(new ErrorModel('更新博客失败'))
+        }
       } else {
-        return new ErrorModel('更新博客失败')
+        reject(new ErrorModel('缺少id'))
       }
-    } else {
-      return new ErrorModel('缺少id')
-    }
+    })
   }
 
   // 删除博客
