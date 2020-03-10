@@ -59,10 +59,17 @@ const serverHandle = (req, res) => {
         })
     }
 
-    const userData = handleUserRouter(req, res)
-    if (userData) {
-      res.end(JSON.stringify(userData))
-      return // 注意 return
+    const userResult = handleUserRouter(req, res)
+    if (userResult) {
+      return userResult
+        .then(userData => {
+          res.end(JSON.stringify(userData))
+          return // 注意 return
+        })
+        .catch(err => {
+          res.end(JSON.stringify(err))
+          return
+        })
     }
 
     // 处理 404
