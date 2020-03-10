@@ -50,11 +50,13 @@ const handleBlogRouter = (req, res) => {
     return new Promise((resolve, reject) => {
       if (id) {
         const result = updateBlog(id, req.body)
-        if (result) {
-          resolve(new SuccessModel('更新博客成功'))
-        } else {
-          reject(new ErrorModel('更新博客失败'))
-        }
+        result.then(val => {
+          if (val) {
+            resolve(new SuccessModel('更新博客成功'))
+          } else {
+            reject(new ErrorModel('更新博客失败'))
+          }
+        })
       } else {
         reject(new ErrorModel('缺少id'))
       }
@@ -63,16 +65,21 @@ const handleBlogRouter = (req, res) => {
 
   // 删除博客
   if (method === 'POST' && path === `${prefix}/delete`) {
-    if (id) {
-      const result = delBlog(id)
-      if (result) {
-        return new SuccessModel('删除博客成功')
+    return new Promise((resolve, reject) => {
+      if (id) {
+        const author = 'zhourusheng' // 假数据
+        const result = delBlog(id, author)
+        result.then(val => {
+          if (val) {
+            resolve(new SuccessModel('删除博客成功'))
+          } else {
+            reject(new ErrorModel('删除博客失败'))
+          }
+        })
       } else {
-        return new ErrorModel('删除博客失败')
+        reject(new ErrorModel('缺少id'))
       }
-    } else {
-      return new ErrorModel('缺少id')
-    }
+    })
   }
 }
 module.exports = handleBlogRouter
